@@ -1,21 +1,39 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import * as React from 'react';
+import UsersList from './UsersList'
 
-class App extends Component {
+// z braku laku istniających userów definiuję po prostu jako stałą
+// w prawdziwej aplikacji pochodziliby z API i/lub byli w Reduksowym storze 
+const allUsers = ['Michal', 'Kasia', 'Jacek', 'Marta', 'Tomek', 'Ania'];
+
+class App extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      filteredUsers: allUsers
+    };
+  }
+
+  filterUsers(e) {
+    const text = e.currentTarget.value;
+    const filteredUsers = this.getFilteredUsersForText(text)
+    this.setState({
+      filteredUsers
+    })
+  }
+
+  getFilteredUsersForText(text) {
+    return allUsers.filter(user => user.toLowerCase().includes(text.toLowerCase()))
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        <input onInput={this.filterUsers.bind(this)} />
+        <UsersList users={this.state.filteredUsers} />
       </div>
     );
   }
-}
+};
 
 export default App;
