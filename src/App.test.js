@@ -21,3 +21,11 @@ it('passes all users to the UsersList', () => {
   const app = shallow(<App />);
   expect(app.find('UsersList').prop('users')).toEqual(['Michal', 'Kasia', 'Jacek', 'Marta', 'Tomek', 'Ania']);
 })
+
+it('filters names on input', () => {
+  const app = shallow(<App />);
+  expect(app.find('UsersList').prop('users')).toEqual(['Michal', 'Kasia', 'Jacek', 'Marta', 'Tomek', 'Ania']);
+
+  app.find('input').simulate('input', {currentTarget: {value: 'M'}})
+  expect(app.find('UsersList').prop('users')).toEqual(['Michal', 'Marta', 'Tomek']);
+});
