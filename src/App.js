@@ -14,7 +14,7 @@ class App extends React.Component {
     };
   }
 
-  filterUsers(e) {
+  filterUsers = (e) => {
     const text = e.currentTarget.value;
     const filteredUsers = this.getFilteredUsersForText(text)
     this.setState({
@@ -29,7 +29,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <input onInput={this.filterUsers.bind(this)} />
+        <input onInput={this.filterUsers} />
         <UsersList users={this.state.filteredUsers} />
       </div>
     );
