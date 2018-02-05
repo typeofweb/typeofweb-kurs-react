@@ -28,7 +28,7 @@ describe('list of users', () => {
     
     users.forEach(user => {
         it(`includes name ${user} on the list`, () => {
-            expect(usersList.containsMatchingElement(<li>{user}</li>)).toEqual(true)
+            expect(usersList).toContainReact(<li>{user}</li>)
         });
     });
 });
