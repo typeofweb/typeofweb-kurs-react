@@ -7,7 +7,8 @@ export class ContactsList extends React.Component {
     const { title, first, last } = contact.name;
     const name = `${title} ${first} ${last}`.trim();
     const phone = contact.phone;
-    return <ContactItem avatarUrl={avatarUrl} name={name} phone={phone} />;
+    const key = contact.login.username;
+    return <ContactItem key={key} avatarUrl={avatarUrl} name={name} phone={phone} />;
   };
 
   render() {
