@@ -6,7 +6,11 @@
     margin-top: 5em;
 }
 
-ul.ui.list li:before {
+main .ui.list .item:before {
   display: none;
   content: '';
+}
+
+main .ui.list {
+  margin-left: 0;
 }
