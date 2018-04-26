@@ -1,10 +1,10 @@
 import * as React from "react";
-import { ContactsList } from "./ContactsList";
 import { AppHeader } from "./AppHeader";
 import { ContactsFilterContainer } from "./ContactsFilter";
 import { connect } from "react-redux";
 import { contactsFetched } from "./actions";
 import { getFilteredContacts } from "./selectors/getFilteredContacts";
+import { AsyncComponent } from "./AsyncComponent";
 
 export class App extends React.Component {
   state = {
@@ -23,11 +23,26 @@ export class App extends React.Component {
         <AppHeader />
         <main className="ui main text container">
           <ContactsFilterContainer />
-          <ContactsList contacts={this.props.contacts} /> {/* (2) */}
+          {this.maybeRenderContactsList()}
         </main>
       </div>
     );
   }
+
+  maybeRenderContactsList = () => {
+    if (!this.props.contacts.length) {
+      return null;
+    }
+
+    return (
+      <AsyncComponent
+        componentProps={{ contacts: this.props.contacts }}
+        componentProvider={() =>
+          import("./ContactsList").then(module => module.ContactsList)
+        }
+      />
+    );
+  };
 }
 
 const mapStateToProps = state => {
