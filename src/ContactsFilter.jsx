@@ -5,14 +5,16 @@ import { searchContacts } from "./actions";
 class ContactsFilter extends React.Component {
   render() {
     return (
-      <div className="ui icon fluid input">
-        <input
-          type="text"
-          placeholder="Search..."
-          value={this.props.contactsSearch}
-          onChange={this.handleSearchChange}
-        />
-        <i className="search icon" />
+      <div className="field">
+        <div className="ui icon fluid input">
+          <input
+            type="text"
+            placeholder="Search..."
+            value={this.props.contactsSearch}
+            onChange={this.handleSearchChange}
+          />
+          <i className="search icon" />
+        </div>
       </div>
     );
   }

@@ -1,9 +1,10 @@
 import * as React from "react";
 import { ContactsList } from "./ContactsList";
+import { SeedPickerContainer } from "./SeedPicker";
 import { AppHeader } from "./AppHeader";
 import { ContactsFilterContainer } from "./ContactsFilter";
 import { connect } from "react-redux";
-import { contactsFetched } from "./actions";
+import { fetchContacts } from "./actions";
 import { getFilteredContacts } from "./selectors/getFilteredContacts";
 
 export class App extends React.Component {
@@ -12,9 +13,7 @@ export class App extends React.Component {
   };
 
   componentDidMount() {
-    fetch("https://randomuser.me/api/?format=json&results=10")
-      .then(res => res.json())
-      .then(json => this.props.contactsFetched(json.results));
+    this.props.fetchContacts()
   }
 
   render() {
@@ -22,7 +21,12 @@ export class App extends React.Component {
       <div>
         <AppHeader />
         <main className="ui main text container">
-          <ContactsFilterContainer />
+          <form className="ui large form">
+            <div className="ui segment">
+              <SeedPickerContainer />
+              <ContactsFilterContainer />
+            </div>
+          </form>
           <ContactsList contacts={this.props.contacts} /> {/* (2) */}
         </main>
       </div>
@@ -36,6 +40,6 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = { contactsFetched };
+const mapDispatchToProps = { fetchContacts };
 
 export const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
