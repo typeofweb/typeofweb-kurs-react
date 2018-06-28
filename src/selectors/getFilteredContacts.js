@@ -1,7 +1,11 @@
-export const getFilteredContacts = (contacts, text) => {
+export const getFilteredContacts = (contactsResponse, text) => {
+  if (!contactsResponse.data) {
+    return [];
+  }
+
   const contactsSearch = text.toLowerCase();
 
-  return contacts.filter(contact => {
+  return contactsResponse.data.results.filter(contact => {
     const { first, last } = contact.name;
 
     return (
